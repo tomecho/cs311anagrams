@@ -138,7 +138,8 @@ public class CS311Anagrams {
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			String line;
 			while ((line = bufferedReader.readLine()) != null) {
-				dictionary.add(new DictEntry(line));  // create new entry and append
+				if(!line.isEmpty())
+					dictionary.add(new DictEntry(line));  // create new entry and append
 			}
 			fileReader.close();
 		} catch (Exception e) {
