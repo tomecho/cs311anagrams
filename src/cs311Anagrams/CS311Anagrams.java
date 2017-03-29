@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 public class CS311Anagrams {
 	public static void main(String[] args) {
+		long startTime = System.currentTimeMillis();
+		
 		//check args
 		if(args.length != 1) {
 			System.err.println("I dont understand your args");
@@ -19,12 +21,29 @@ public class CS311Anagrams {
 		//sort each dictEntry orgWord to sortedWord
 		for(DictEntry de : dictionary) {
 			de.sortedWord = sortString(de.orgWord);
-			System.out.println(de.orgWord + " -> " + de.sortedWord);
 		}
 		System.out.println("sorted dictEntry's");
 		
 		//sort array list
+		sortDict(dictionary);
 		
+		/*
+		//combine common anagrams
+		DictEntry prev = null; //this will track the last one
+		for(DictEntry de : dictionary){
+			if(prev != null && de.sortedWord.equals(prev.sortedWord)) { //if the last one had the same anagram class
+				System.out.print(" " + de.orgWord); //add this one on the same line
+			} else {
+				System.out.println(); //if not move to next line
+				System.out.print(de.orgWord); //print out that word
+			}
+			prev = de;
+		}
+		System.out.println();*/
+		
+		long endTime = System.currentTimeMillis();
+		long totalTime = endTime - startTime;
+		System.out.println(totalTime + " millisecond");
 	}
 	
 	public static ArrayList<DictEntry> sortDict(ArrayList<DictEntry> dict) {
@@ -54,10 +73,10 @@ public class CS311Anagrams {
 				dict.set(j, temp);
 			} 
 		}
-		//swap Dict[i+1] with Dict[r]
+		//swap Dict[i+1] with Dict[r-1]
 		DictEntry temp = dict.get(i+1);
-		dict.set(i+1, dict.get(r));
-		dict.set(r, temp);
+		dict.set(i+1, dict.get(r-1));
+		dict.set(r-1, temp);
 		return i+1;
 	}
 	
@@ -88,7 +107,7 @@ public class CS311Anagrams {
 				word[j] = temp;
 			} 
 		}
-		//swap word[i+1] with word[r]
+		//swap word[i+1] with word[r-1]
 		char temp = word[i+1];
 		word[i+1] = word[r-1];
 		word[r-1] = temp;
