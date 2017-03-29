@@ -3,6 +3,7 @@ package cs311Anagrams;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class CS311Anagrams {
@@ -27,19 +28,31 @@ public class CS311Anagrams {
 		//sort array list
 		sortDict(dictionary);
 		
-		/*
-		//combine common anagrams
-		DictEntry prev = null; //this will track the last one
-		for(DictEntry de : dictionary){
-			if(prev != null && de.sortedWord.equals(prev.sortedWord)) { //if the last one had the same anagram class
-				System.out.print(" " + de.orgWord); //add this one on the same line
-			} else {
-				System.out.println(); //if not move to next line
-				System.out.print(de.orgWord); //print out that word
+		//combine common anagram classes and write to file
+		File file = new File("anagram-output");
+		FileWriter fileWriter;
+		try {
+			fileWriter = new FileWriter(file);
+			
+			DictEntry prev = null; //this will track the last one
+			for(DictEntry de : dictionary){
+				if(prev != null && de.sortedWord.equals(prev.sortedWord)) { //if the last one had the same anagram class
+					fileWriter.write(" " + de.orgWord); //add this one on the same line
+				} else {
+					fileWriter.write("\n"); //if not move to next line
+					fileWriter.write(de.orgWord); //print out that word
+				}
+				prev = de;
 			}
-			prev = de;
+			fileWriter.write("\n");
+			
+			fileWriter.flush();
+			fileWriter.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Failed to write to file");
 		}
-		System.out.println();*/
+		
 		
 		long endTime = System.currentTimeMillis();
 		long totalTime = endTime - startTime;
