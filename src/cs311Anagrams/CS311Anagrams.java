@@ -38,13 +38,14 @@ public class CS311Anagrams {
 			for(DictEntry de : dictionary){
 				if(prev != null && de.sortedWord.equals(prev.sortedWord)) { //if the last one had the same anagram class
 					fileWriter.write(" " + de.orgWord); //add this one on the same line
-				} else {
+				} else if(prev == null) { //first entry
+					fileWriter.write(de.orgWord); //print out that word
+				} else { //not first entry
 					fileWriter.write("\n"); //if not move to next line
 					fileWriter.write(de.orgWord); //print out that word
 				}
 				prev = de;
 			}
-			fileWriter.write("\n");
 			
 			fileWriter.flush();
 			fileWriter.close();
