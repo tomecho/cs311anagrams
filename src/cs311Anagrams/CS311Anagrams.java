@@ -32,6 +32,7 @@ public class CS311Anagrams {
 		return dict;
 	}
 	
+	//basically the same as our other method
 	public static void quicksortDict(ArrayList<DictEntry> dict, int p, int r) {
 		if(p<r){
 			int q=partition2(dict,p,r);
@@ -40,8 +41,24 @@ public class CS311Anagrams {
 		}
 	}
 	
+	//basically the same as our other method
 	public static int partition2(ArrayList<DictEntry> dict, int p, int r) {
-		return 0;
+		int i = p - 1;
+		for(int j=p; j<= r-1; j++) {
+			//lexicographically compare words
+			if(dict.get(j).sortedWord.compareTo(dict.get(r-1).sortedWord) < 0) {
+				i++;
+				//swap Dict[i] with Dict[j]
+				DictEntry temp = dict.get(i);
+				dict.set(i, dict.get(j));
+				dict.set(j, temp);
+			} 
+		}
+		//swap Dict[i+1] with Dict[r]
+		DictEntry temp = dict.get(i+1);
+		dict.set(i+1, dict.get(r));
+		dict.set(r, temp);
+		return i+1;
 	}
 	
 	public static String sortString(String word){
@@ -61,7 +78,6 @@ public class CS311Anagrams {
 	
 	//the same method from the book
 	public static int partition(char[] word, int p, int r) {
-		//char x = word[r-1]; //cast to int for easy comparisons
 		int i = p - 1;
 		for(int j=p; j<= r-1; j++) {
 			if(word[j] < word[r-1]) {
